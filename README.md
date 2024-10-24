@@ -10,7 +10,7 @@ It could, for example, be used to show business operating hours, or a simple boo
 
 ## Demo
 
-You can see the code in action in the form of a Bludit CMS plugin on [bludit-bs5simplyblog.joho.se](https://bludit-bs5simplyblog.joho.se/areweopen)
+You can see the code in action in the form of a Bludit CMS plugin on [bludit-bs5simplyblog.joho.se/areweopen](https://bludit-bs5simplyblog.joho.se/areweopen)
 
 ## Requirements
 
@@ -62,7 +62,7 @@ v3 for more details.
 
 You should have received a copy of the GNU AFFERO GENERAL PUBLIC LICENSE v3
 along with the AvailableTime package. If not, write to:
-``
+```
 The Free Software Foundation, Inc.,
 51 Franklin Street, Fifth Floor
 Boston, MA  02110-1301, USA.
