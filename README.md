@@ -30,11 +30,16 @@ See the file `test_available_time.php` for sample usage.
 
 For the `exception_times` parameter, you may use specific dates (YYYYMMDD), or a range of dates where either start or end can be omitted.
 
+To specify a range, use `YYYYMMDD-YYYYMMDD`, `YYYYMMDD-`, `-YYYYMMDD`. The `YYYY` part may also be expressed as `????` to mean every year on the specified month and day.
+
 For the daily schedule, time slots are specified as `HHMM-HHMM`, `HHMM-` and/or `-HHMM`.
 
 The code assumes dates to be specified as `YYYYMMDD` and times as `HHMM` (24h format)
 
 ## Changelog
+
+### 1.0.1 (2024-10-24)
+* Added support for wildcard year parameter in exception dates
 
 ### 1.0.0 (2024-10-24)
 * Initial release

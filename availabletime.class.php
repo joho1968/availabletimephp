@@ -22,6 +22,7 @@
  *  Boston, MA  02110-1301, USA.
  *
  * 1.0.0 (2024-10-24) Initial revision
+ * 1.0.1 (2024-10-24) Added support for ????MMDD in exception dates
  */
 
 
@@ -108,14 +109,18 @@ class AvailableTime {
             return( false );
         }
         foreach( $this->exception_times as $exception_time ) {
-            if ( strpos( $exception_time, '-' !== false ) ) {
+            if ( strpos( $exception_time, '-' ) !== false ) {
                 try {
                     [$range_start, $range_end] = explode( '-', $exception_time );
                     if ( empty( $range_start ) ) {
                         $range_start = '00000000';
+                    } elseif( strpos( $range_start, '????' ) === 0 ) {
+                        $range_start = $check_date_time->format( 'Y' ) . substr( $range_start, 4 );
                     }
                     if ( empty( $range_end ) ) {
                         $range_end = '99991231';
+                    } elseif( strpos( $range_end, '????' ) === 0 ) {
+                        $range_end = $check_date_time->format( 'Y' ) . substr( $range_end, 4 );
                     }
                     if ( $check_date_time_date >= $range_start && $check_date_time_date <= $range_end ) {
                         if ( defined( 'AVAILABLETIMECLASS_DEBUG' ) && AVAILABLETIMECLASS_DEBUG ) {
@@ -126,6 +131,15 @@ class AvailableTime {
                     }
                 } catch( \Throwable $e ) {
                     error_log( basename( __FILE__ ) . '(' . __FUNCTION__ . '): Exception ' . $e->getMessage() );
+                    return( false );
+                }
+            } elseif ( strpos( $exception_time, '????' ) === 0 ) {
+                $wildcard_check = $check_date_time->format( 'Y' ) . substr( $exception_time, 4 );
+                if ( $wildcard_check === $check_date_time_date ) {
+                    if ( defined( 'AVAILABLETIMECLASS_DEBUG' ) && AVAILABLETIMECLASS_DEBUG ) {
+                        error_log( basename( __FILE__ ) . '(' . __FUNCTION__ . '): We are not available on "' . $check_date_time_date . '" ("' . $exception_time . '")' );
+                    }
+                    // Range match found, not available
                     return( false );
                 }
             }
